@@ -1,0 +1,49 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Patient Dashboard - User Authentication System{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header bg-primary text-white">
+        <h3>Patient Dashboard</h3>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="img-fluid rounded-circle" style="width: 200px; height: 200px; object-fit: cover;">
+                {% else %}
+                    <img src="https://via.placeholder.com/200" alt="Default Profile" class="img-fluid rounded-circle">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <h4>Welcome, {{ user.first_name }} {{ user.last_name }}</h4>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Username:</strong> {{ user.username }}</p>
+                        <p><strong>Email:</strong> {{ user.email }}</p>
+                        <p><strong>User Type:</strong> {{ user.get_user_type_display }}</p>
+                    </div>
+                    <div class="col-md-6">
+                        <p><strong>Address:</strong> {{ user.address_line1 }}</p>
+                        <p><strong>City:</strong> {{ user.city }}</p>
+                        <p><strong>State:</strong> {{ user.state }}</p>
+                        <p><strong>Pincode:</strong> {{ user.pincode }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer text-center">
+        <!-- Option 1: Link using GET method (now allowed) -->
+        <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+        
+        <!-- Option 2: Form using POST method (more secure) -->
+        <form method="post" action="{% url 'logout' %}" style="display: inline-block; margin-left: 10px;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Secure Logout</button>
+        </form>
+    </div>
+</div>
+{% endblock %} 

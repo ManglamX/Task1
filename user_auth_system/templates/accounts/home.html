@@ -1,0 +1,22 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home - User Authentication System{% endblock %}
+
+{% block content %}
+<div class="jumbotron text-center mt-5">
+    <h1 class="display-4">Welcome to the Authentication System</h1>
+    <p class="lead">This is a simple authentication system for Patients and Doctors.</p>
+    <hr class="my-4">
+    <p>Please sign up or login to access your dashboard.</p>
+    {% if not user.is_authenticated %}
+        <a class="btn btn-primary btn-lg me-2" href="{% url 'signup' %}" role="button">Sign Up</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+    {% else %}
+        {% if user.user_type == 'patient' %}
+            <a class="btn btn-success btn-lg" href="{% url 'patient_dashboard' %}" role="button">Go to Dashboard</a>
+        {% elif user.user_type == 'doctor' %}
+            <a class="btn btn-success btn-lg" href="{% url 'doctor_dashboard' %}" role="button">Go to Dashboard</a>
+        {% endif %}
+    {% endif %}
+</div>
+{% endblock %} 
