@@ -135,4 +135,3 @@ You can log out:
 - CSRF protection for forms
 - Secure logout mechanisms (using POST method)
 - Role-based access control
-

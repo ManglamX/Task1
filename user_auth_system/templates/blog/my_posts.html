@@ -1,0 +1,37 @@
+{% extends 'accounts/base.html' %}
+
+{% block blog_content %}
+<h2 class="mb-4">My Blog Posts</h2>
+
+<div class="row">
+    {% for post in posts %}
+    <div class="col-md-6 mb-4">
+        <div class="card h-100">
+            {% if post.image %}
+            <img src="{{ post.image.url }}" class="card-img-top" alt="{{ post.title }}" style="height: 200px; object-fit: cover;">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.get_truncated_summary }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge {% if post.is_draft %}badge-warning{% else %}badge-success{% endif %}">
+                        {{ post.is_draft|yesno:"Draft,Published" }}
+                    </span>
+                    <div>
+                        <a href="{% url 'post_detail' post.id %}" class="btn btn-primary btn-sm">View</a>
+                        <a href="{% url 'edit_post' post.id %}" class="btn btn-outline-primary btn-sm">Edit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="col-12">
+        <p class="text-center">You haven't created any blog posts yet.</p>
+        <div class="text-center">
+            <a href="{% url 'create_post' %}" class="btn btn-primary">Create Your First Post</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %} 

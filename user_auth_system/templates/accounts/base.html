@@ -51,6 +51,19 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'home' %}">Home</a>
                         </li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'blog_list' %}">Blogs</a>
+                            </li>
+                            {% if user.user_type == 'doctor' %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'create_post' %}">Create Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'my_posts' %}">My Posts</a>
+                                </li>
+                            {% endif %}
+                        {% endif %}
                     </ul>
                     <ul class="navbar-nav">
                         {% if user.is_authenticated %}
@@ -91,6 +104,7 @@
         {% endif %}
 
         {% block content %}{% endblock %}
+        {% block blog_content %}{% endblock %}
     </div>
 
     <!-- Bootstrap JS Bundle with Popper -->

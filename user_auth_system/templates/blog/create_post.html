@@ -1,0 +1,51 @@
+{% extends 'accounts/base.html' %}
+
+{% block blog_content %}
+<h2 class="mb-4">Create New Blog Post</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Title</label>
+        {{ form.title.errors }}
+        <input type="text" name="{{ form.title.name }}" id="{{ form.title.id_for_label }}" class="form-control" required>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="{{ form.image.id_for_label }}">Image</label>
+        {{ form.image.errors }}
+        <input type="file" name="{{ form.image.name }}" id="{{ form.image.id_for_label }}" class="form-control-file" required>
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="{{ form.category.id_for_label }}">Category</label>
+        {{ form.category.errors }}
+        {{ form.category }}
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="{{ form.summary.id_for_label }}">Summary</label>
+        {{ form.summary.errors }}
+        {{ form.summary }}
+    </div>
+
+    <div class="form-group mt-3">
+        <label for="{{ form.content.id_for_label }}">Content</label>
+        {{ form.content.errors }}
+        {{ form.content }}
+    </div>
+
+    <div class="form-group mt-3">
+        <div class="custom-control custom-checkbox">
+            {{ form.is_draft }}
+            <label class="custom-control-label" for="{{ form.is_draft.id_for_label }}">Save as draft</label>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <button type="submit" class="btn btn-primary">Create Post</button>
+        <a href="{% url 'blog_list' %}" class="btn btn-secondary">Cancel</a>
+    </div>
+</form>
+{% endblock %} 
